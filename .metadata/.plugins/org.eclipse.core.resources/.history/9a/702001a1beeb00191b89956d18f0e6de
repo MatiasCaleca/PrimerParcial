@@ -1,0 +1,64 @@
+/*
+ ============================================================================
+ Name        : primerParcial.c
+ Author      : Matias
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdio_ext.h>
+#include "eCliente.h"
+#include "ePedidoPendiente.h"
+#include "utn.h"
+
+
+int main(void)
+{
+	int opcion;
+	int contadorIdCliente=0;
+
+	eCliente eClienteArray[100];
+	eClienteInicializar(eClienteArray,100);
+
+
+	do
+	{
+		utn_getIntNumber("\n\n1) Alta Cliente: \n2) Modificar datos de Cliente: \n3) Baja Cliente: \n4) Crear pedido de recoleccion:  \n5) Procesamiento de residuos:  \n6) Mostrar lista clientes: \n7) Mostrar pedidos pendientes \n8) Mostrar pedidos procesados \n9) Informes \n10) Salir\n",                   //cambiar
+				                      "\nError. Opcion no valida ",1,sizeof(int),1,10,3,&opcion);
+		switch(opcion)
+		{
+			case 1: // Alta Cliente
+				eClienteAlta(eClienteArray, 100,&contadorIdCliente);
+				break;
+			case 2: // Modificar Cliente
+				eClienteAlta(eClienteArray,100,&contadorIdCliente);
+				break;
+			case 3: // Baja Cliente
+				eClienteBaja(eClienteArray,100);
+				break;
+			case 4: // Alta Pedido de Recoleccion
+				break;
+			case 5: // Alta Procesamiento de Reciduos
+				break;
+			case 6: // Imprimir Clientes
+				eClienteListar(eClienteArray,100);
+				break;
+			case 7: // Imprimir Pedidos Pendientes
+				break;
+			case 8: // Imprimir Pedidos Procesado
+				break;
+			case 9: // Exit/Salir
+				break;
+			default:
+				printf("\nOpcion no valida");
+		}
+
+
+	}while(opcion!=10);
+	return 0;
+}

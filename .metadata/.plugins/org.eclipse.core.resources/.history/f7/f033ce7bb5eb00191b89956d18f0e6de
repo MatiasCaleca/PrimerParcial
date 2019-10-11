@@ -1,0 +1,98 @@
+/*
+ * eCliente.c
+ *
+ *  Created on: 10 oct. 2019
+ *      Author: alumno
+ */
+
+
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdio_ext.h>
+#include "eCliente.h"
+#include "utn.h"
+
+
+#define TEXT_SIZE 50
+
+int eClienteInicializar(eCliente eClienteArray[], int size)
+{
+    int retorno=-1;
+    int i;
+    if(eClienteArray!= NULL && size>0)
+    {
+        for(i=0;i<size;i++)
+        {
+        	eClienteArray[i].isEmpty=1;
+        }
+        retorno=0;
+    }
+    return retorno;
+}
+
+int eClienteBuscarEmpty(eCliente eClienteArray[], int size, int *posicion)
+{
+    int retorno=-1;
+    int i;
+    if(eClienteArray!= NULL && size>=0 && posicion!=NULL)
+    {
+        for(i=0;i<size;i++)
+        {
+            if(eClienteArray[i].isEmpty==1)
+            {
+                retorno=0;
+                *posicion=i;
+                break;
+            }
+        }
+    }
+    return retorno;
+}
+
+int eClienteBuscarId(eCliente eClienteArray[], int size, int valorBuscado, int *posicion)
+{
+    int retorno=-1;
+    int i;
+    if(eClienteArray!= NULL && size>=0)
+    {
+        for(i=0;i<size;i++)
+        {
+            if(eClienteArray[i].isEmpty==1)
+                continue;
+            else if(eClienteArray[i].idCliente==valorBuscado)
+            {
+                retorno=0;
+                *posicion=i;
+                break;
+            }
+        }
+    }
+    return retorno;
+}
+
+int eClienteAlta(eCliente eClienteArray[], int size, int *contadorID)
+{
+    int retorno=-1;
+    int posicion;
+    if(eClienteArray!=NULL && size>0 && contadorID!=NULL)
+    {
+        if(eClienteBuscarEmpty(eClienteArray,size,&posicion)==-1)
+        {
+            printf("\nNo hay lugares vacios");
+        }
+        else
+        {
+            (*contadorID)++;
+            eClienteArray[posicion].idCliente=*contadorID;
+            utn_getName("\nIngrese nombre de la empresa: ","\nError. Nombre de la empresa no valido",1,TEXT_SIZE,3,eClienteArray[posicion].nombreEmpresa);
+            utn_getCUIT("\nIngrese Cuit: ","\nError. Cuit no valido",3,eClienteArray[posicion].cuit);
+
+            //utn_getString("\nIngrese lugar donde se realiza la Orquesta: ","\nError. Lugar no valido",1,TEXT_SIZE,3,arrayOrquesta[posicion].lugar);
+            //utn_getIntNumber("\nIngrese tipo de orquesta, con valor numero 1, 2 o 3:\n iendo: 1) Sinfonica 2) Filarmonica 3) Camara: ","ERROR. Numero no valido",1,10,1,3,3,&arrayOrquesta[posicion].tipoOrquesta);
+            eClienteArray[posicion].isEmpty=0;
+            retorno=0;
+        }
+    }
+    return retorno;
+}

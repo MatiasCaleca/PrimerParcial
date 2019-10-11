@@ -1,0 +1,24 @@
+21:40:29 **** Incremental Build of configuration Debug for project primerParcial ****
+make all 
+Building file: ../src/eCliente.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/eCliente.d" -MT"src/eCliente.o" -o "src/eCliente.o" "../src/eCliente.c"
+../src/eCliente.c: In function ‘eClienteAlta’:
+../src/eCliente.c:90:72: warning: passing argument 4 of ‘utn_getCUIT’ makes pointer from integer without a cast [-Wint-conversion]
+             utn_getCUIT("\nIngrese Cuit: ","\nError. Cuit no valido",3,eClienteArray[posicion].cuit);
+                                                                        ^~~~~~~~~~~~~
+In file included from ../src/eCliente.c:15:0:
+../src/utn.h:25:5: note: expected ‘char *’ but argument is of type ‘int’
+ int utn_getCUIT(char *mensaje, char *mensajeError, int reintentos, char *input);
+     ^~~~~~~~~~~
+../src/eCliente.c: In function ‘eClienteListar’:
+../src/eCliente.c:177:118: warning: format ‘%s’ expects a matching ‘char *’ argument [-Wformat=]
+                 printf("\n ID: %d\n Nombre de la empresa: %s\n Cuit: %d\nDireccion: %s\n Direccion: %s\n Localidad: %s",
+                                                                                                                      ^
+Finished building: ../src/eCliente.c
+ 
+Building target: primerParcial
+Invoking: GCC C Linker
+gcc  -o "primerParcial"  ./src/eCliente.o ./src/ePedidoPendiente.o ./src/primerParcial.o ./src/utn.o   
+Finished building target: primerParcial
+ 

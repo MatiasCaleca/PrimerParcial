@@ -1,0 +1,21 @@
+/*
+ ============================================================================
+ Name        : primerParcial.c
+ Author      : Matias
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdio_ext.h>
+#include "eCliente.h"
+
+int main(void)
+{
+
+	return 0;
+}

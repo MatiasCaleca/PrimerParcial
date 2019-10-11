@@ -1,0 +1,27 @@
+/*
+ * eCliente.h
+ *
+ *  Created on: 10 oct. 2019
+ *      Author: alumno
+ */
+
+#ifndef ECLIENTE_H_
+#define ECLIENTE_H_
+
+#define TEXT_SIZE 50
+
+struct
+{
+	int idCliente;
+	char nombreEmpresa[TEXT_SIZE];
+	int cuit;
+	char direccion[TEXT_SIZE];
+	char localidad[TEXT_SIZE];
+	int isEmpty;
+
+}typedef eCliente;
+
+int eClienteInicializar(eCliente eClienteArray[], int size);
+int eClienteBuscarEmpty(eCliente eClienteArray[], int size, int *posicion);
+
+#endif /* ECLIENTE_H_ */

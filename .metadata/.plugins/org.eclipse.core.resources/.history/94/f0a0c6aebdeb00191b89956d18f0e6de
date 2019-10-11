@@ -1,0 +1,24 @@
+/*
+ * pedidoPendiente.h
+ *
+ *  Created on: 10 oct. 2019
+ *      Author: alumno
+ */
+
+#ifndef PEDIDOPENDIENTE_H_
+#define PEDIDOPENDIENTE_H_
+
+struct
+{
+	int idpedidoPendiente;
+	int idCliente;
+	int cantidadKilos;
+	char estadoPedido;
+	int isEmpty;
+
+}typedef ePedidosPendiente;
+
+int ePedidosPendienteInicializar(ePedidosPendiente ePedidosPendienteArray [], int size);
+int ePedidosPendienteBuscarEmpty(ePedidosPendiente ePedidosPendienteArray[], int size, int *posicion)
+
+#endif /* PEDIDOPENDIENTE_H_ */

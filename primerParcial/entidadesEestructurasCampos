@@ -1,0 +1,40 @@
+estructura 
+Cliente
+
+idCliente
+nombreEmpresa
+cuit
+direccion
+localidad
+isEmpty
+
+alta cliente
+modificicar cliente
+baja cliente
+
+------------------------------
+pedidoPendiente
+
+idPedidoPendiente
+idCliente
+cantidadKilos
+estadoPedido (pendiente)
+isEmpty
+
+
+
+
+------------------------------
+pedidoProcesado
+
+idPedidoProcesado
+idCliente
+idPedidoPendiente
+tiposPlasticos
+cantidadTipoPlasticos
+estadoPedido (completado)
+isEmpty
+
+
+
+
