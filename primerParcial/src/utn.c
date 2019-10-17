@@ -10,8 +10,9 @@
 #include <stdlib.h>
 #include <stdio_ext.h>
 #include "eCliente.h"
-#include "ePedidoPendiente.h"
+#include "ePedidos.h"
 #include "utn.h"
+#include "informes.h"
 
 
 int utn_getIntNumber(char *mensaje, char *mensajeError, int minimoSize, int maximoSize, int minimo, int maximo, int reintentos, int *input)
@@ -23,7 +24,7 @@ int utn_getIntNumber(char *mensaje, char *mensajeError, int minimoSize, int maxi
     {
         do
         {
-            if(! utn_getString(mensaje,mensajeError,minimoSize,maximoSize,reintentos,bufferStr)) //==0 sin errores !0
+            if(! utn_getString(mensaje,mensajeError,minimoSize,maximoSize,reintentos,bufferStr))//==0 sin errores !0
             {
                 if(utn_isValidIntNumber(bufferStr)==1)
                 {
@@ -93,7 +94,7 @@ int utn_isValidFloatNumber(char *stringRecibido)
     int i;
     for(i=0;stringRecibido[i]!='\0';i++)
     {
-        if((stringRecibido[i]<'0' || stringRecibido[i]>'9') && (stringRecibido[i]!='.'))
+        if((stringRecibido[i]<'0' || stringRecibido[i]>'9') && (stringRecibido[i]!='.' || stringRecibido[i]!=',' ))
         {
             retorno=0;
             break;
@@ -180,7 +181,7 @@ int utn_isValidChar(char *charRecibido)
 	int i;
 	for(i=0;charRecibido[i]!='\0';i++)
 	{
-		if((charRecibido[i]<'A' || (charRecibido[i]>'Z' && charRecibido[i]<'a') || charRecibido[i]>'z'))
+		if((charRecibido[i]<'A' || charRecibido[i]>'Z') && (charRecibido[i]<'a' || charRecibido[i]>'z'))
 		{
 			retorno=0;
 			break;
@@ -379,7 +380,7 @@ int utn_isValidCUIT(char *stringRecibido)
         }
     }
 
-    int digitos[10]={2,3,4,5,6,7,2,3,4,5};
+    int digitos[i];
     int acumulado = 0;
     int verificador;
 
@@ -533,4 +534,3 @@ int utn_isValidAlphanumeric(char* stringRecibido)
     }
     return retorno;
 }
-

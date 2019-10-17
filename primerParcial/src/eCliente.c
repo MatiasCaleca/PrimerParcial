@@ -1,29 +1,30 @@
 /*
  * eCliente.c
  *
- *  Created on: 10 oct. 2019
- *      Author: alumno
+ *  Created on: 13 oct. 2019
+ *      Author: mati
  */
-
 
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio_ext.h>
 #include "eCliente.h"
-#include "ePedidoPendiente.h"
+#include "ePedidos.h"
 #include "utn.h"
+#include "informes.h"
 
 
 #define TEXT_SIZE 50
+#define TEXT_CUIT 13
 
-int eClienteInicializar(eCliente eClienteArray[], int size)
+int eClienteInicializar(eCliente eClienteArray[], int eClienteSize)
 {
     int retorno=-1;
     int i;
-    if(eClienteArray!= NULL && size>0)
+    if(eClienteArray!= NULL && eClienteSize>0)
     {
-        for(i=0;i<size;i++)
+        for(i=0;i<eClienteSize;i++)
         {
         	eClienteArray[i].isEmpty=1;
         }
@@ -32,13 +33,13 @@ int eClienteInicializar(eCliente eClienteArray[], int size)
     return retorno;
 }
 
-int eClienteBuscarEmpty(eCliente eClienteArray[], int size, int *posicion)
+int eClienteBuscarEmpty(eCliente eClienteArray[], int eClienteSize, int *posicion)
 {
     int retorno=-1;
     int i;
-    if(eClienteArray!= NULL && size>=0 && posicion!=NULL)
+    if(eClienteArray!= NULL && eClienteSize>=0 && posicion!=NULL)
     {
-        for(i=0;i<size;i++)
+        for(i=0;i<eClienteSize;i++)
         {
             if(eClienteArray[i].isEmpty==1)
             {
@@ -51,13 +52,13 @@ int eClienteBuscarEmpty(eCliente eClienteArray[], int size, int *posicion)
     return retorno;
 }
 
-int eClienteBuscarId(eCliente eClienteArray[], int size, int valorBuscado, int *posicion)
+int eClienteBuscarId(eCliente eClienteArray[], int eClienteSize, int valorBuscado, int *posicion)
 {
     int retorno=-1;
     int i;
-    if(eClienteArray!= NULL && size>=0)
+    if(eClienteArray!= NULL && eClienteSize>=0)
     {
-        for(i=0;i<size;i++)
+        for(i=0;i<eClienteSize;i++)
         {
             if(eClienteArray[i].isEmpty==1)
                 continue;
@@ -72,13 +73,13 @@ int eClienteBuscarId(eCliente eClienteArray[], int size, int valorBuscado, int *
     return retorno;
 }
 
-int eClienteAlta(eCliente eClienteArray[], int size, int *contadorID)
+int eClienteAlta(eCliente eClienteArray[], int eClienteSize, int *contadorID)
 {
     int retorno=-1;
     int posicion;
-    if(eClienteArray!=NULL && size>0 && contadorID!=NULL)
+    if(eClienteArray!=NULL && eClienteSize>0 && contadorID!=NULL)
     {
-        if(eClienteBuscarEmpty(eClienteArray,size,&posicion)==-1)
+        if(eClienteBuscarEmpty(eClienteArray,eClienteSize,&posicion)==-1)
         {
             printf("\nNo hay lugares vacios");
         }
@@ -87,10 +88,13 @@ int eClienteAlta(eCliente eClienteArray[], int size, int *contadorID)
             (*contadorID)++;
             eClienteArray[posicion].idCliente=*contadorID;
             utn_getName("\nIngrese nombre de la empresa: ","\nError. Nombre de la empresa no valido",1,TEXT_SIZE,3,eClienteArray[posicion].nombreEmpresa);
-            utn_getCUIT("\nIngrese Cuit: ","\nError. Cuit no valido",3,eClienteArray[posicion].cuit);
+            utn_getCUIT("\nIngrese su Cuit (sin guiones ni espacios): ","\nError. Cuit no valido",3,eClienteArray[posicion].cuit);
             utn_getAlfanumerico("\nIngrese direccion: ","\nError. Direccion no valida",1,TEXT_SIZE,3,eClienteArray[posicion].direccion);
             utn_getString("\nIngrese localidad: ","\nError. Localidad no valido",1,TEXT_SIZE,3,eClienteArray[posicion].localidad);
             eClienteArray[posicion].isEmpty=0;
+
+            printf("\nSu ID es: %d,\nEmpresa: %s", eClienteArray[posicion].idCliente,eClienteArray[posicion].nombreEmpresa);
+
             retorno=0;
         }
     }
@@ -114,14 +118,15 @@ int eClienteModificar(eCliente eClienteArray[], int eClienteArraySize)
         {
             do
             {
-                utn_getChar("\nModificar: \nA-Direccion \nB-Localidad \nS-Salir","\nError",'A','Z',1,&opcion);
+            	printf("\nDireccion: %s\nLocalidad: %s\n",eClienteArray[posicion].direccion,eClienteArray[posicion].localidad);
+				utn_getChar("\nIngrese variable a modificar: \nA-Direccion \nB-Localidad \nS-Salir: ","\nError",'A','Z',1,&opcion);
                 switch(opcion)
                 {
                     case 'A':
-                        utn_getName("\nIngrese nuevo nombre: ","\nError. Nombre no valido",1,TEXT_SIZE,3,eClienteArray[posicion].direccion);
+                        utn_getAlfanumerico("\nIngrese nueva direccion: ","\nError. Nombre no valido",1,TEXT_SIZE,3,eClienteArray[posicion].direccion);
                         break;
                     case 'B':
-						 utn_getLastName("\nIngrese nuevo Apellido: ","\nError. Apellido no valido",1,TEXT_SIZE,3,eClienteArray[posicion].localidad);
+						 utn_getString("\nIngrese nueva localdad: ","\nError. Apellido no valido",1,TEXT_SIZE,3,eClienteArray[posicion].localidad);
                         break;
 
                     case 'S':
@@ -153,7 +158,7 @@ int eClienteBaja(eCliente eClienteArray[], int eClienteArraySize)
         	eClienteArray[posicion].isEmpty=1;
         	eClienteArray[posicion].idCliente=0;
             strcpy(eClienteArray[posicion].nombreEmpresa,"");
-            eClienteArray[posicion].cuit=0;
+            strcpy(eClienteArray[posicion].cuit,"");
             strcpy(eClienteArray[posicion].direccion,"");
             strcpy(eClienteArray[posicion].localidad,"");
 
@@ -163,20 +168,24 @@ int eClienteBaja(eCliente eClienteArray[], int eClienteArraySize)
     return retorno;
 }
 
-int eClienteListar(eCliente eClienteArray[], int eClientesize)
+int eClienteListar(eCliente eClienteArray[], int eClienteSize)
 {
     int retorno=-1;
     int i;
-    if(eClienteArray!=NULL && eClientesize>=0)
+    if(eClienteArray!=NULL && eClienteSize>=0)
     {
-        for(i=0;i<eClientesize;i++)
+        for(i=0;i<eClienteSize;i++)
         {
             if(eClienteArray[i].isEmpty==1)
-                continue;
+            {
+            	continue;
+			}
             else
-                printf("\n ID: %d\n Nombre de la empresa: %s\n Cuit: %d\nDireccion: %s\n Direccion: %s\n Localidad: %s",
+            {
+                printf("\nID: %d\nNombre de la empresa: %s\nCuit: %s\nDireccion: %s\nDireccion: %s\nLocalidad: %s",
                 		eClienteArray[i].idCliente,eClienteArray[i].nombreEmpresa, eClienteArray[i].cuit, eClienteArray[i].direccion, eClienteArray[i].localidad);
-        }
+            }
+		}
         retorno=0;
     }
     return retorno;
