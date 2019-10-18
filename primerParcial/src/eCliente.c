@@ -182,11 +182,13 @@ int eClienteListar(eCliente eClienteArray[], int eClienteSize)
 			}
             else
             {
-                printf("\nID: %d\nNombre de la empresa: %s\nCuit: %s\nDireccion: %s\nDireccion: %s\nLocalidad: %s",
+            	printf("%d",i);
+                printf("\nID: %d\nNombre de la empresa: %s\nCuit: %s\nDireccion: %s\nLocalidad: %s",
                 		eClienteArray[i].idCliente,eClienteArray[i].nombreEmpresa, eClienteArray[i].cuit, eClienteArray[i].direccion, eClienteArray[i].localidad);
             }
-		}
         retorno=0;
+		}
+printf("%d",retorno);
     }
     return retorno;
 }
