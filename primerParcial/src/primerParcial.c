@@ -93,6 +93,6 @@ int main(void)
 		}
 
 
-	}while(opcion!=10);
+	}while(opcion!=9);
 	return 0;
 }
